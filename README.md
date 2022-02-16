@@ -1,2 +1,2 @@
 # LibraryApp
-Simple frontend SPA for the library.
+Simple SPA for the library.
