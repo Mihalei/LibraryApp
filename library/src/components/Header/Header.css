@@ -1,5 +1,6 @@
 .nav-container {
-    width: 80%;
+    width: 100%;
+    background-color: #EAEAEA !important;
     justify-content: space-evenly;
 }
 
