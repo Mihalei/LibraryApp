@@ -1,0 +1,22 @@
+.body-container {
+    display: grid;
+    height: 70%;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20%;
+    place-items: center / stretch;
+    align-content: space-evenly;
+}
+
+#welcome-title {
+    place-self: center;
+}
+
+#first-h2-text {
+    place-self: center;
+}
+
+#second-h2-text {
+    place-self: center;
+}
+
