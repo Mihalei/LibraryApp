@@ -2,24 +2,24 @@ export interface Member {
 	id: string;
 	firstName: string;
 	lastName: string;
-	dateOfBirth: Date | undefined;
+	dateOfBirth: Date;
 }
 
 export const memberInit: Member = {
 	id: "",
 	firstName: "",
 	lastName: "",
-	dateOfBirth: undefined,
+	dateOfBirth: new Date(),
 };
 
 export interface CreateMember {
 	firstName: string;
 	lastName: string;
-	dateOfBirth: Date | undefined;
+	dateOfBirth: Date;
 }
 
 export const createMemberInit: CreateMember = {
 	firstName: "",
 	lastName: "",
-	dateOfBirth: undefined,
+	dateOfBirth: new Date(),
 };

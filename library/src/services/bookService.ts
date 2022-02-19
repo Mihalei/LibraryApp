@@ -1,24 +1,98 @@
 import { Book, CreateBook } from "../models/book";
-import axios from "axios";
+import {
+	createBook,
+	deleteBookById,
+	getBookById,
+	getBooks,
+	updateBook as update,
+} from "../api/bookApi";
 
-const baseURL = "https://620d7c7a20ac3a4eedc24efd.mockapi.io/api/v1/Book";
-
-export const getBooks = () => {
-	return axios.get(baseURL).then((res) => res.data);
+export const getAllBooks = () => {
+	try {
+		return getBooks();
+	} catch (error) {
+		return undefined;
+	}
 };
 
-export const getBookById = (id: string) => {
-	return axios.get(`${baseURL}/${id}`).then((res) => res.data);
+export const getBook = (id: string) => {
+	try {
+		return getBookById(id);
+	} catch (error) {
+		return undefined;
+	}
 };
 
-export const createBook = (book: CreateBook) => {
-	return axios.post(baseURL, book).then((res) => res.data);
+export const addNewBook = (book: CreateBook) => {
+	try {
+		return createBook(book);
+	} catch (error) {
+		return undefined;
+	}
 };
 
 export const updateBook = (book: Book) => {
-	return axios.put(`${baseURL}/${book.id}`, book).then((res) => res.data);
+	try {
+		return update(book);
+	} catch (error) {
+		return undefined;
+	}
 };
 
-export const deleteBookById = (id: string) => {
-	return axios.delete(`${baseURL}/${id}`).then((res) => res.data);
+export const deleteBook = (id: string) => {
+	try {
+		return deleteBookById(id);
+	} catch (error) {
+		return undefined;
+	}
 };
+
+export async function getBookCount() {
+	try {
+		const res = await getAllBooks();
+		if (res) return res.length;
+		return undefined;
+	} catch (error) {
+		return undefined;
+	}
+}
+
+export async function getAllBooksFromAuthor(authorName: string) {
+	try {
+		const res = await getAllBooks();
+		if (res) {
+			return res.filter(
+				(b) => b.author.toLowerCase().trim() === authorName.toLowerCase().trim()
+			);
+		}
+		return undefined;
+	} catch (error) {
+		return undefined;
+	}
+}
+
+export async function getAllBooksWithTitle(bookTitle: string) {
+	try {
+		const res = await getAllBooks();
+		if (res) {
+			return res.filter(
+				(b) => b.title.toLowerCase().trim() === bookTitle.toLowerCase().trim()
+			);
+		}
+		return undefined;
+	} catch (error) {
+		return undefined;
+	}
+}
+
+export async function getSetOfBookAuthors() {
+	try {
+		const res = await getAllBooks();
+		if (res) {
+			return new Set(res.map((b) => b.author.toLowerCase().trim()));
+		}
+		return undefined;
+	} catch (error) {
+		return undefined;
+	}
+}

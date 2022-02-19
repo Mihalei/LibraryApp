@@ -3,22 +3,22 @@ import axios from "axios";
 
 const baseURL = "https://620d7c7a20ac3a4eedc24efd.mockapi.io/api/v1/Member";
 
-export const getMembers = () => {
+export async function getMembers(): Promise<Member[]> {
 	return axios.get(baseURL).then((res) => res.data);
-};
+}
 
-export const getMemberById = (id: string) => {
+export async function getMemberById(id: string): Promise<Member> {
 	return axios.get(`${baseURL}/${id}`).then((res) => res.data);
-};
+}
 
-export const createMember = (member: CreateMember) => {
+export async function createMember(member: CreateMember): Promise<any> {
 	return axios.post(baseURL, member).then((res) => res.data);
-};
+}
 
-export const updateMember = (member: Member) => {
+export async function updateMember(member: Member): Promise<any> {
 	return axios.put(`${baseURL}/${member.id}`, member).then((res) => res.data);
-};
+}
 
-export const deleteMemberById = (id: string) => {
+export async function deleteMemberById(id: string): Promise<any> {
 	return axios.delete(`${baseURL}/${id}`).then((res) => res.data);
-};
+}

@@ -5,7 +5,7 @@
     grid-template-rows: repeat(3, 1fr);
     gap: 20%;
     place-items: center / stretch;
-    align-content: space-evenly;
+    align-content: space-around;
 }
 
 #welcome-title {
