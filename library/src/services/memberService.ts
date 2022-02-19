@@ -1,5 +1,6 @@
 import { Member, CreateMember } from "../models/member";
-import { memberAPI as Api } from "../api/memberApi";
+//import { memberAPI as Api } from "../api/memberApi";
+import { mockMemberAPI as Api } from "../mock-database/memberApi";
 
 export const getAllMembers = () => {
 	try {

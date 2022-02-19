@@ -1,6 +1,7 @@
 import { Borrowing, CreateBorrowing } from "../models/borrowing";
-import { borrowingAPI as Api } from "../api/borrowingApi";
-import { getBook, updateBook, getAllBooks } from "./bookService";
+//import { borrowingAPI as Api } from "../api/borrowingApi";
+import { mockBorrowingAPI as Api } from "../mock-database/borrowingApi";
+import { getBook, getAllBooks } from "./bookService";
 
 export const getAllBorrowings = () => {
 	try {
