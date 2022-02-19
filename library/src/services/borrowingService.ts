@@ -1,17 +1,10 @@
 import { Borrowing, CreateBorrowing } from "../models/borrowing";
-import {
-	createBorrowing,
-	deleteBorrowingById,
-	getBorrowingById,
-	getBorrowings,
-	updateBorrowing as update,
-} from "../api/borrowingApi";
-import { getBook, updateBook } from "./bookService";
-import { getBooks } from "../api/bookApi";
+import { borrowingAPI as Api } from "../api/borrowingApi";
+import { getBook, updateBook, getAllBooks } from "./bookService";
 
 export const getAllBorrowings = () => {
 	try {
-		return getBorrowings();
+		return Api.getAll();
 	} catch (error) {
 		return undefined;
 	}
@@ -19,7 +12,7 @@ export const getAllBorrowings = () => {
 
 export const getBorrowing = (id: string) => {
 	try {
-		return getBorrowingById(id);
+		return Api.get(id);
 	} catch (error) {
 		return undefined;
 	}
@@ -30,7 +23,7 @@ export async function borrowABook(borrowing: CreateBorrowing) {
 		const book = await getBook(borrowing.bookId);
 		const borrowingCount = await getBorrowingCountForBook(borrowing.bookId);
 		if (book && borrowingCount && book.amount > borrowingCount) {
-			return createBorrowing(borrowing);
+			return Api.create(borrowing);
 		}
 		return undefined;
 	} catch (error) {
@@ -40,7 +33,7 @@ export async function borrowABook(borrowing: CreateBorrowing) {
 
 export const updateBorrowing = (borrowing: Borrowing) => {
 	try {
-		return update(borrowing);
+		return Api.update(borrowing);
 	} catch (error) {
 		return undefined;
 	}
@@ -48,7 +41,7 @@ export const updateBorrowing = (borrowing: Borrowing) => {
 
 export const returnABook = (borrowingId: string) => {
 	try {
-		return deleteBorrowingById(borrowingId);
+		return Api.delete(borrowingId);
 	} catch (error) {
 		return undefined;
 	}
@@ -91,7 +84,7 @@ export async function getBorrowingCountForMember(memberId: string) {
 export async function getBooksBorrowedByMember(memberId: string) {
 	try {
 		const allBorrowings = await getAllBorrowings();
-		const allBooks = await getBooks();
+		const allBooks = await getAllBooks();
 		if (allBorrowings && allBooks) {
 			const bookIds = new Set(
 				allBorrowings.filter((b) => b.memberId === memberId).map((b) => b.bookId)

@@ -1,15 +1,9 @@
 import { Member, CreateMember } from "../models/member";
-import {
-	createMember,
-	deleteMemberById,
-	getMemberById,
-	getMembers,
-	updateMember as update,
-} from "../api/memberApi";
+import { memberAPI as Api } from "../api/memberApi";
 
 export const getAllMembers = () => {
 	try {
-		return getMembers();
+		return Api.getAll();
 	} catch (error) {
 		return undefined;
 	}
@@ -17,7 +11,7 @@ export const getAllMembers = () => {
 
 export const getMember = (id: string) => {
 	try {
-		return getMemberById(id);
+		return Api.get(id);
 	} catch (error) {
 		return undefined;
 	}
@@ -25,7 +19,7 @@ export const getMember = (id: string) => {
 
 export const addNewMember = (member: CreateMember) => {
 	try {
-		return createMember(member);
+		return Api.create(member);
 	} catch (error) {
 		return undefined;
 	}
@@ -33,7 +27,7 @@ export const addNewMember = (member: CreateMember) => {
 
 export const updateMember = (member: Member) => {
 	try {
-		return update(member);
+		return Api.update(member);
 	} catch (error) {
 		return undefined;
 	}
@@ -41,7 +35,7 @@ export const updateMember = (member: Member) => {
 
 export const deleteMember = (id: string) => {
 	try {
-		return deleteMemberById(id);
+		return Api.delete(id);
 	} catch (error) {
 		return undefined;
 	}
