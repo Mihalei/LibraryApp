@@ -1,15 +1,9 @@
 import { Book, CreateBook } from "../models/book";
-import {
-	createBook,
-	deleteBookById,
-	getBookById,
-	getBooks,
-	updateBook as update,
-} from "../api/bookApi";
+import { bookAPI as Api } from "../api/bookApi";
 
 export const getAllBooks = () => {
 	try {
-		return getBooks();
+		return Api.getAll();
 	} catch (error) {
 		return undefined;
 	}
@@ -17,7 +11,7 @@ export const getAllBooks = () => {
 
 export const getBook = (id: string) => {
 	try {
-		return getBookById(id);
+		return Api.get(id);
 	} catch (error) {
 		return undefined;
 	}
@@ -25,7 +19,7 @@ export const getBook = (id: string) => {
 
 export const addNewBook = (book: CreateBook) => {
 	try {
-		return createBook(book);
+		return Api.create(book);
 	} catch (error) {
 		return undefined;
 	}
@@ -33,7 +27,7 @@ export const addNewBook = (book: CreateBook) => {
 
 export const updateBook = (book: Book) => {
 	try {
-		return update(book);
+		return Api.update(book);
 	} catch (error) {
 		return undefined;
 	}
@@ -41,7 +35,7 @@ export const updateBook = (book: Book) => {
 
 export const deleteBook = (id: string) => {
 	try {
-		return deleteBookById(id);
+		return Api.delete(id);
 	} catch (error) {
 		return undefined;
 	}
