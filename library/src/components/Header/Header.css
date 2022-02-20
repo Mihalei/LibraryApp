@@ -1,9 +1,10 @@
 .nav-container {
     width: 100%;
-    background-color: #EAEAEA !important;
+    background-color: #C4A484 !important;
     justify-content: space-evenly;
 }
 
-.header-container {
-    height: 20%;
+.nav-container a {
+    text-decoration: none;
+    color:forestgreen;
 }

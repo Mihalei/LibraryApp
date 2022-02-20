@@ -1,6 +1,6 @@
-.body-container {
+.home-container {
     display: grid;
-    height: 70%;
+    height: 100%;
     grid-template-columns: 100%;
     grid-template-rows: repeat(3, 1fr);
     gap: 20%;
