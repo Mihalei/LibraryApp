@@ -1,6 +1,6 @@
 import { Book, CreateBook } from "../models/book";
-import { bookAPI as Api } from "../api/bookApi";
-//import { mockBookAPI as Api } from "../mock-database/bookApi";
+//import { bookAPI as Api } from "../api/bookApi";
+import { mockBookAPI as Api } from "../mock-database/bookApi";
 
 export const getAllBooks = () => {
 	try {

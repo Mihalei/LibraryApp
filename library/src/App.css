@@ -3,7 +3,7 @@
 }
 
 #layout {
-    height: 100% !important;
+  height: 100% !important;
 }
 
 .app #header{
@@ -11,7 +11,9 @@
 }
 
 .app #main-content{
-  height: 70% !important;
+  min-height: 70% !important;
+  padding-top: 5%;
+  padding-bottom: 22%;
 }
 
 .app #footer{

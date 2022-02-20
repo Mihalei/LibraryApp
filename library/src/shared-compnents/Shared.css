@@ -1,0 +1,6 @@
+.search-input {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    height: 38px;
+}

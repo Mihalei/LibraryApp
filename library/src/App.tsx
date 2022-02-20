@@ -6,6 +6,7 @@ import Books from "./components/Books/Books";
 import Members from "./components/Members/Members";
 import Borrowings from "./components/Borrowings/Borrowings";
 import Layout from "./components/Layout/Layout";
+import AddBook from "./components/Books/AddBook";
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/books" element={<Books />} />
+						<Route path="/books/add-book" element={<AddBook />} />
 						<Route path="/members" element={<Members />} />
 						<Route path="/borrowings" element={<Borrowings />} />
 					</Routes>
