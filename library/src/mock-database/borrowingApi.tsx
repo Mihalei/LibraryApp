@@ -2,6 +2,8 @@ import { Borrowing, CreateBorrowing } from "../models/borrowing";
 import { API } from "../models/api";
 import { Borrowings, nextBorrowingId } from "./data";
 
+const nextId = nextBorrowingId();
+
 export const mockBorrowingAPI: API<Borrowing> = {
 	getAll: async function (): Promise<Borrowing[]> {
 		return getBorrowings();
@@ -31,9 +33,13 @@ async function getBorrowingById(id: string): Promise<Borrowing> {
 }
 
 async function createBorrowing(borrowing: CreateBorrowing): Promise<any> {
-	const newBorrowing: Borrowing = { ...borrowing, id: nextBorrowingId.toString() };
-	Borrowings.push(newBorrowing);
-	return Promise.resolve();
+	const newId = nextId.next().value;
+	if (typeof newId === "number") {
+		const newBorrowing: Borrowing = { ...borrowing, id: newId.toString() };
+		Borrowings.push(newBorrowing);
+		return Promise.resolve();
+	}
+	return Promise.reject("Error while generating new id for borrowing.");
 }
 
 async function updateBorrowing(borrowing: Borrowing): Promise<any> {

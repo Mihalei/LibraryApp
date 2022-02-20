@@ -2,6 +2,8 @@ import { Member, CreateMember } from "../models/member";
 import { API } from "../models/api";
 import { Members, nextMemberId } from "./data";
 
+const nextId = nextMemberId();
+
 export const mockMemberAPI: API<Member> = {
 	getAll: async function (): Promise<Member[]> {
 		return getMembers();
@@ -31,9 +33,13 @@ async function getMemberById(id: string): Promise<Member> {
 }
 
 async function createMember(member: CreateMember): Promise<any> {
-	const newMember: Member = { ...member, id: nextMemberId.toString() };
-	Members.push(newMember);
-	return Promise.resolve();
+	const newId = nextId.next().value;
+	if (typeof newId === "number") {
+		const newMember: Member = { ...member, id: newId.toString() };
+		Members.push(newMember);
+		return Promise.resolve();
+	}
+	return Promise.reject("Error while generating new id for member.");
 }
 
 async function updateMember(member: Member): Promise<any> {

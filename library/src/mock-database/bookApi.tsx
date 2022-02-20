@@ -2,6 +2,8 @@ import { Book, CreateBook } from "../models/book";
 import { API } from "../models/api";
 import { Books, nextBookId } from "./data";
 
+const nextId = nextBookId();
+
 export const mockBookAPI: API<Book> = {
 	getAll: async function (): Promise<Book[]> {
 		return getBooks();
@@ -31,9 +33,13 @@ async function getBookById(id: string): Promise<Book> {
 }
 
 async function createBook(book: CreateBook): Promise<any> {
-	const newBook: Book = { ...book, id: nextBookId.toString() };
-	Books.push(newBook);
-	return Promise.resolve();
+	const newId = nextId.next().value;
+	if (typeof newId === "number") {
+		const newBook: Book = { ...book, id: newId.toString() };
+		Books.push(newBook);
+		return Promise.resolve();
+	}
+	return Promise.reject("Error while generating new id for book.");
 }
 
 async function updateBook(book: Book): Promise<any> {

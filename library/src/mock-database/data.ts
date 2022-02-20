@@ -184,23 +184,20 @@ export const Borrowings: Borrowing[] = [
 export function* nextBookId() {
 	let nextId = Books.length;
 	while (true) {
-		yield nextId;
-		nextId++;
+		yield ++nextId;
 	}
 }
 
 export function* nextMemberId() {
 	let nextId = Members.length;
 	while (true) {
-		yield nextId;
-		nextId++;
+		yield ++nextId;
 	}
 }
 
 export function* nextBorrowingId() {
 	let nextId = Borrowings.length;
 	while (true) {
-		yield nextId;
-		nextId++;
+		yield ++nextId;
 	}
 }
