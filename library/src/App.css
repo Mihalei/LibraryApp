@@ -1,4 +1,19 @@
 .app {
-    background-color: #EAEAEA;
-    height: 100%;
+    background-color: #C4A484;
+}
+
+#layout {
+    height: 100% !important;
+}
+
+.app #header{
+  height: 20% !important;
+}
+
+.app #main-content{
+  height: 70% !important;
+}
+
+.app #footer{
+  height: 10% !important;
 }

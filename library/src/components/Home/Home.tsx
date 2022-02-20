@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getBookCount } from "../../services/bookService";
-import "./Body.css";
+import "./Home.css";
 
-function Body() {
+function Home() {
 	const [numberOfBooks, setNumberOfBooks] = useState(0);
 	async function fetchNumberOfBooks() {
 		const res = await getBookCount();
@@ -15,7 +15,7 @@ function Body() {
 	}, []);
 
 	return (
-		<div className="body-container">
+		<div className="home-container">
 			<h1 id="welcome-title">Welcome to the Library App!</h1>
 			<h2 id="first-h2-text">
 				Here you can find and read {numberOfBooks} different &#128218;
@@ -25,4 +25,4 @@ function Body() {
 	);
 }
 
-export default Body;
+export default Home;
