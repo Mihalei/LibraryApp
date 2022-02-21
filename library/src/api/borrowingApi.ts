@@ -54,6 +54,6 @@ async function updateBorrowing(borrowing: Borrowing): Promise<any> {
 async function deleteBorrowingById(id: string): Promise<any> {
 	return axios
 		.delete(`${baseURL}/${id}`)
-		.then((res) => res.data)
+		.then((res) => alert("Book is returned successfully!"))
 		.catch((error) => alert(`Failed to delete borrowing with id ${id}.`));
 }

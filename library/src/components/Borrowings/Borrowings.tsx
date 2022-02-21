@@ -48,7 +48,7 @@ function Borrowings() {
 						<Button
 							variant="success"
 							onClick={() => navigate("/borrowings/add-borrowing")}>
-							New
+							Borrow
 						</Button>
 					</div>
 				</div>

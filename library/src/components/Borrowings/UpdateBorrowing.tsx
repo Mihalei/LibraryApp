@@ -10,6 +10,7 @@ import {
 import {
 	getBorrowing,
 	getDetailedBorrowings,
+	returnABook,
 	updateBorrowing,
 } from "../../services/borrowingService";
 import "./Borrowings.css";
@@ -28,6 +29,12 @@ function UpdateBorrowing() {
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		const res = await updateBorrowing(updatedBorrowing);
+		navigate("/borrowings");
+	}
+
+	async function handleReturnBook(e: any) {
+		e.preventDefault();
+		const res = await returnABook(originalBorrowing.borrowing.id);
 		navigate("/borrowings");
 	}
 
@@ -80,6 +87,9 @@ function UpdateBorrowing() {
 
 				<Button variant="success" type="submit" onClick={handleSubmit}>
 					Update
+				</Button>
+				<Button variant="secondary" type="submit" onClick={handleReturnBook}>
+					Return Book
 				</Button>
 				<Button variant="danger" type="submit" onClick={() => navigate("/borrowings")}>
 					Cancel
