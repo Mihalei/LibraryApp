@@ -2,7 +2,8 @@ import { Member, CreateMember } from "../models/member";
 import axios from "axios";
 import { API } from "../models/api";
 
-const baseURL = "http://localhost:3000/membes";
+//const baseURL = "https://620d7c7a20ac3a4eedc24efd.mockapi.io/api/v1/Member";
+const baseURL = "http://localhost:3000/members";
 
 export const memberAPI: API<Member> = {
 	getAll: async function (): Promise<Member[]> {
