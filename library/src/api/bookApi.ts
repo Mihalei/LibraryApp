@@ -2,7 +2,7 @@ import { Book, CreateBook } from "../models/book";
 import axios from "axios";
 import { API } from "../models/api";
 
-const baseURL = "https://620d7c7a20ac3a4eedc24efd.mockapi.io/api/v1/Book";
+const baseURL = "http://localhost:3000/books";
 
 export const bookAPI: API<Book> = {
 	getAll: async function (): Promise<Book[]> {

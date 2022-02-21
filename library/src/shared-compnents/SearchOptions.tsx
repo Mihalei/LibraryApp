@@ -18,7 +18,7 @@ export const SearchOptions: React.FC<IProps> = ({ options, select, setSelect }) 
 					<Dropdown.Item
 						onClick={() => setSelect(...k.slice(1))}
 						value={k.slice(1)}
-						eventKey={v}>
+						key={v}>
 						{k.slice(1)}
 					</Dropdown.Item>
 				))}

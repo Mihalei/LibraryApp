@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { CreateBook, createBookInit } from "../../models/book";
 import { addNewBook } from "../../services/bookService";
 import "./Books.css";
 
 function AddBook() {
 	const [newBook, setNewBook] = useState<CreateBook>(createBookInit);
+	const navigate = useNavigate();
 
 	const handleChange = (e: any) => {
 		if (e.target.name !== "amount") setNewBook({ ...newBook, [e.target.name]: e.target.value });
@@ -13,7 +15,11 @@ function AddBook() {
 	};
 
 	async function handleSubmit(e: any) {
-		const res = await addNewBook(newBook);
+		e.preventDefault();
+		if (newBook.amount > 0) {
+			const res = await addNewBook(newBook);
+			navigate("/books");
+		} else alert("Book amount must be greater than 0!");
 	}
 
 	return (
@@ -50,7 +56,10 @@ function AddBook() {
 				</Form.Group>
 
 				<Button variant="success" type="submit" onClick={handleSubmit}>
-					Submit
+					Add
+				</Button>
+				<Button variant="danger" type="submit" onClick={() => navigate("/books")}>
+					Cancel
 				</Button>
 			</Form>
 		</div>

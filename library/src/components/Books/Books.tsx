@@ -2,30 +2,57 @@ import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { Book } from "../../models/book";
 import { bookSearchOptions } from "../../models/search";
-import { getAllBooks } from "../../services/bookService";
+import {
+	getAllBooks,
+	getAllBooksFromAuthor,
+	getAllBooksWithTitle,
+	getBook,
+} from "../../services/bookService";
 import { SearchInput } from "../../shared-compnents/SearchInput";
 import { SearchOptions } from "../../shared-compnents/SearchOptions";
 import { useNavigate } from "react-router-dom";
 import "./Books.css";
 
 function Books() {
-	const [select, setSelect] = useState("Search by");
+	const [searchType, setSearchType] = useState("Search by");
 	const [books, setBooks] = useState<Book[]>([]);
+	const [searchValue, setSearchValue] = useState("");
+	const [startSearch, triggerStartSearch] = useState(false);
 	const navigate = useNavigate();
 
 	async function fetchBooks() {
-		const res = await getAllBooks();
-		if (res) setBooks(res);
-		else alert("Error while loading books.");
+		let res: Book[] | undefined;
+		switch (searchType) {
+			case bookSearchOptions.ByAuthor:
+				res = await getAllBooksFromAuthor(searchValue);
+				if (res) setBooks(res);
+				else alert("Error while finding books.");
+				return;
+			case bookSearchOptions.ById:
+				const r = await getBook(searchValue);
+				if (r) setBooks([r]);
+				else alert("Error while finding book.");
+				return;
+			case bookSearchOptions.ByTitle:
+				res = await getAllBooksWithTitle(searchValue);
+				if (res) setBooks(res);
+				else alert("Error while finding books.");
+				return;
+			default:
+				res = await getAllBooks();
+				if (res) setBooks(res);
+				else alert("Error while loading books.");
+				return;
+		}
 	}
 
-	useEffect(() => {
-		console.log(select);
-	}, [select]);
+	const onRowClick = (bookId: string) => {
+		navigate(`/books/update-book/${bookId}`);
+	};
 
 	useEffect(() => {
 		fetchBooks();
-	}, []);
+	}, [startSearch]);
 
 	return (
 		<div className="books">
@@ -35,10 +62,15 @@ function Books() {
 					<div className="books-actions-container">
 						<SearchOptions
 							options={bookSearchOptions}
-							select={select}
-							setSelect={setSelect}
+							select={searchType}
+							setSelect={setSearchType}
 						/>
-						<SearchInput />
+						<SearchInput
+							input={searchValue}
+							setInput={setSearchValue}
+							startSearch={startSearch}
+							setStartSearch={triggerStartSearch}
+						/>
 						<Button variant="success" onClick={() => navigate("/books/add-book")}>
 							New
 						</Button>
@@ -56,7 +88,7 @@ function Books() {
 						</thead>
 						<tbody>
 							{books.map((b) => (
-								<tr>
+								<tr key={b.id} onClick={() => onRowClick(b.id)}>
 									<td>{b.id}</td>
 									<td>{b.title}</td>
 									<td>{b.author}</td>
