@@ -1,0 +1,38 @@
+.borrowings {
+    justify-content: center;
+    align-content: center;
+}
+
+.borrowings-container {
+    display: grid;
+    justify-content:stretch;
+    align-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.borrowings-title-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 5%;
+}
+
+.borrowings-actions-container {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.add-borrowing-container {
+    justify-content:center;
+    align-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.update-borrowing-container {
+    justify-content:center;
+    align-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}

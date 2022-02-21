@@ -1,7 +1,14 @@
-import { Borrowing, CreateBorrowing } from "../models/borrowing";
+import {
+	Borrowing,
+	CreateBorrowing,
+	DetailedBorrowing,
+	detailedBorrowingInit,
+} from "../models/borrowing";
 import { borrowingAPI as Api } from "../api/borrowingApi";
 //import { mockBorrowingAPI as Api } from "../mock-database/borrowingApi";
 import { getBook, getAllBooks } from "./bookService";
+import { borrowingSearchOptions } from "../models/search";
+import { getAllMembers } from "./memberService";
 
 export const getAllBorrowings = () => {
 	try {
@@ -25,7 +32,8 @@ export async function borrowABook(borrowing: CreateBorrowing) {
 		const borrowingCount = await getBorrowingCountForBook(borrowing.bookId);
 		if (book && borrowingCount && book.amount > borrowingCount) {
 			return Api.create(borrowing);
-		}
+		} else if (book && borrowingCount && book.amount <= borrowingCount)
+			alert(`Book with id ${book.id} is unavailable. Please wait until someone returns it.`);
 		return undefined;
 	} catch (error) {
 		return undefined;
@@ -82,6 +90,34 @@ export async function getBorrowingCountForMember(memberId: string) {
 	}
 }
 
+export async function getDetailedBorrowings(borrowings: Borrowing[]) {
+	try {
+		const books = await getAllBooks();
+		const members = await getAllMembers();
+		if (books && members) {
+			const detailedBorrowings: DetailedBorrowing[] = [];
+			borrowings.forEach((b) => {
+				let detailedBorrowing: DetailedBorrowing = {
+					borrowing: b,
+					bookTitle: "",
+					memberName: "",
+				};
+				const book = books.find((bk) => bk.id === b.bookId);
+				if (book) detailedBorrowing.bookTitle = book.title;
+				else detailedBorrowing.bookTitle = "";
+				const member = members.find((m) => m.id === b.memberId);
+				if (member) detailedBorrowing.memberName = `${member.firstName} ${member.lastName}`;
+				else detailedBorrowing.memberName = "";
+				detailedBorrowings.push(detailedBorrowing);
+			});
+			return detailedBorrowings;
+		}
+		return undefined;
+	} catch (error) {
+		return undefined;
+	}
+}
+
 export async function getBooksBorrowedByMember(memberId: string) {
 	try {
 		const allBorrowings = await getAllBorrowings();
@@ -98,3 +134,55 @@ export async function getBooksBorrowedByMember(memberId: string) {
 	}
 }
 
+export async function getBorrowingsOfBook(bookId: string) {
+	try {
+		const allBorrowings = await getAllBorrowings();
+		if (allBorrowings) {
+			return allBorrowings.filter((b) => b.bookId === bookId);
+		}
+		return undefined;
+	} catch (error) {
+		return undefined;
+	}
+}
+
+export async function getBorrowingsByMember(memberId: string) {
+	try {
+		const allBorrowings = await getAllBorrowings();
+		if (allBorrowings) {
+			return allBorrowings.filter((b) => b.memberId === memberId);
+		}
+		return undefined;
+	} catch (error) {
+		return undefined;
+	}
+}
+
+export async function getBorrowings(searchType: string, searchValue: string) {
+	switch (searchType) {
+		case borrowingSearchOptions.ById:
+			const rBI = await getBorrowing(searchValue);
+			if (rBI) {
+				const resBI = await getDetailedBorrowings([rBI]);
+				return resBI;
+			} else return undefined;
+		case borrowingSearchOptions.ByBookId:
+			const rBBI = await getBorrowingsOfBook(searchValue);
+			if (rBBI) {
+				const resBBI = await getDetailedBorrowings(rBBI);
+				return resBBI;
+			} else return undefined;
+		case borrowingSearchOptions.ByMemberId:
+			const rBMI = await getBorrowingsByMember(searchValue);
+			if (rBMI) {
+				const resBMI = await getDetailedBorrowings(rBMI);
+				return resBMI;
+			} else return undefined;
+		default:
+			const rA = await getAllBorrowings();
+			if (rA) {
+				const resA = await getDetailedBorrowings(rA);
+				return resA;
+			} else return undefined;
+	}
+}

@@ -19,3 +19,15 @@ export const createBorrowingInit: CreateBorrowing = {
 	bookId: "",
 	memberId: "",
 };
+
+export interface DetailedBorrowing {
+	borrowing: Borrowing;
+	bookTitle: string;
+	memberName: string;
+}
+
+export const detailedBorrowingInit: DetailedBorrowing = {
+	borrowing: borrowingInit,
+	bookTitle: "",
+	memberName: "",
+};

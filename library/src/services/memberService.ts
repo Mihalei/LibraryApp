@@ -59,7 +59,7 @@ export async function getMembersYoungerThan(age: number) {
 		if (res) {
 			return res.filter(
 				(m) =>
-					new Date().getFullYear() - new Date(Date.parse(m.dateOfBirth)).getFullYear() <
+					new Date().getFullYear() - new Date(Date.parse(m.dateOfBirth)).getFullYear() <=
 					age
 			);
 		}
