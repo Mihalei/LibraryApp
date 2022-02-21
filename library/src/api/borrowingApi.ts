@@ -24,21 +24,36 @@ export const borrowingAPI: API<Borrowing> = {
 };
 
 async function getBorrowings(): Promise<Borrowing[]> {
-	return axios.get(baseURL).then((res) => res.data);
+	return axios
+		.get(baseURL)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to fetch borrowings.`));
 }
 
 async function getBorrowingById(id: string): Promise<Borrowing> {
-	return axios.get(`${baseURL}/${id}`).then((res) => res.data);
+	return axios
+		.get(`${baseURL}/${id}`)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to fetch borrowing with id ${id}.`));
 }
 
 async function createBorrowing(borrowing: CreateBorrowing): Promise<any> {
-	return axios.post(baseURL, borrowing).then((res) => res.data);
+	return axios
+		.post(baseURL, borrowing)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to create borrowing.`));
 }
 
 async function updateBorrowing(borrowing: Borrowing): Promise<any> {
-	return axios.put(`${baseURL}/${borrowing.id}`, borrowing).then((res) => res.data);
+	return axios
+		.put(`${baseURL}/${borrowing.id}`, borrowing)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to update borrowing with id ${borrowing.id}.`));
 }
 
 async function deleteBorrowingById(id: string): Promise<any> {
-	return axios.delete(`${baseURL}/${id}`).then((res) => res.data);
+	return axios
+		.delete(`${baseURL}/${id}`)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to delete borrowing with id ${id}.`));
 }

@@ -30,7 +30,7 @@ function AddBook() {
 					<Form.Control
 						type="name"
 						name="title"
-						placeholder="Enter title"
+						placeholder="Title"
 						onChange={handleChange}
 					/>
 				</Form.Group>

@@ -123,7 +123,7 @@ it("Member Services tests", async () => {
 	res = await addNewMember({
 		firstName: "Christiano",
 		lastName: "Ronaldo",
-		dateOfBirth: new Date(),
+		dateOfBirth: "1985-02-05",
 	});
 	//expect(res).toBeTruthy();
 
@@ -131,7 +131,7 @@ it("Member Services tests", async () => {
 		id: "1",
 		firstName: "Elon",
 		lastName: "Musk",
-		dateOfBirth: new Date(),
+		dateOfBirth: "1971-07-28",
 	});
 	//expect(res).toBeTruthy();
 

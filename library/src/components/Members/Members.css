@@ -1,0 +1,38 @@
+.members {
+    justify-content: center;
+    align-content: center;
+}
+
+.members-container {
+    display: grid;
+    justify-content:stretch;
+    align-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.members-title-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 5%;
+}
+
+.members-actions-container {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.add-member-container {
+    justify-content:center;
+    align-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.update-member-container {
+    justify-content:center;
+    align-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}

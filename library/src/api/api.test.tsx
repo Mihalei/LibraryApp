@@ -144,11 +144,10 @@ it("Member CRUD tests", async () => {
 	if (member) expect(member.id).toBe("1");
 
 	// CREATE
-	const newDate = new Date();
 	const newMember: CreateMember = {
 		firstName: "Ken",
 		lastName: "Kaneki",
-		dateOfBirth: newDate,
+		dateOfBirth: "1995-01-07",
 	};
 	await memberAPI.create(newMember);
 	// check if number of members increased by 1
@@ -160,7 +159,7 @@ it("Member CRUD tests", async () => {
 	).toBeGreaterThan(0);
 	// check if id of newly created member is correctly generated
 	const newMemberId = res.find(
-		(m) => m.firstName === "Ken" && m.lastName === "Kaneki" && m.dateOfBirth === newDate
+		(m) => m.firstName === "Ken" && m.lastName === "Kaneki" && m.dateOfBirth === "1995-01-07"
 	)?.id;
 	expect(newMemberId).toBeTruthy();
 	if (newMemberId) expect(Number.parseInt(newMemberId)).toBeGreaterThan(memberCount);
@@ -173,7 +172,7 @@ it("Member CRUD tests", async () => {
 			id: newMemberId,
 			firstName: "Sen",
 			lastName: "Takatsuki",
-			dateOfBirth: newDate,
+			dateOfBirth: "1995-01-07",
 		};
 		await memberAPI.update(memberUpdate);
 		// check that firstName and lastName were updated correctly
