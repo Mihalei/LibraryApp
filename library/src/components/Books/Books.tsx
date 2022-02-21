@@ -79,6 +79,3 @@ function Books() {
 }
 
 export default Books;
-function useHistory() {
-	throw new Error("Function not implemented.");
-}
