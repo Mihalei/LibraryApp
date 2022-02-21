@@ -12,3 +12,10 @@ export enum memberSearchOptions {
 	YoungerThan = "Younger than",
 }
 
+export enum borrowingSearchOptions {
+	All = "All",
+	ById = "By id",
+	ByMemberId = "By member id",
+	ByBookId = "By book id",
+}
+

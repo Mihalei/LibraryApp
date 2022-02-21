@@ -10,6 +10,8 @@ import AddBook from "./components/Books/AddBook";
 import UpdateBook from "./components/Books/UpdateBook";
 import AddMember from "./components/Members/AddMember";
 import UpdateMember from "./components/Members/UpdateMember";
+import AddBorrowing from "./components/Borrowings/AddBorrowing";
+import UpdateBorrowing from "./components/Borrowings/UpdateBorrowing";
 
 function App() {
 	return (
@@ -25,6 +27,11 @@ function App() {
 						<Route path="/members/add-member" element={<AddMember />} />
 						<Route path="/members/update-member/:id" element={<UpdateMember />} />
 						<Route path="/borrowings" element={<Borrowings />} />
+						<Route path="/borrowings/add-borrowing" element={<AddBorrowing />} />
+						<Route
+							path="/borrowings/update-borrowing/:id"
+							element={<UpdateBorrowing />}
+						/>
 					</Routes>
 				</Layout>
 			</Router>
