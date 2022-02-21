@@ -2,48 +2,23 @@ import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { Book } from "../../models/book";
 import { bookSearchOptions } from "../../models/search";
-import {
-	getAllBooks,
-	getAllBooksFromAuthor,
-	getAllBooksWithTitle,
-	getBook,
-} from "../../services/bookService";
+import { getBooks } from "../../services/bookService";
 import { SearchInput } from "../../shared-compnents/SearchInput";
 import { SearchOptions } from "../../shared-compnents/SearchOptions";
 import { useNavigate } from "react-router-dom";
 import "./Books.css";
 
 function Books() {
-	const [searchType, setSearchType] = useState("Search by");
 	const [books, setBooks] = useState<Book[]>([]);
+	const [searchType, setSearchType] = useState("Search by");
 	const [searchValue, setSearchValue] = useState("");
 	const [startSearch, triggerStartSearch] = useState(false);
 	const navigate = useNavigate();
 
 	async function fetchBooks() {
-		let res: Book[] | undefined;
-		switch (searchType) {
-			case bookSearchOptions.ByAuthor:
-				res = await getAllBooksFromAuthor(searchValue);
-				if (res) setBooks(res);
-				else alert("Error while finding books.");
-				return;
-			case bookSearchOptions.ById:
-				const r = await getBook(searchValue);
-				if (r) setBooks([r]);
-				else alert("Error while finding book.");
-				return;
-			case bookSearchOptions.ByTitle:
-				res = await getAllBooksWithTitle(searchValue);
-				if (res) setBooks(res);
-				else alert("Error while finding books.");
-				return;
-			default:
-				res = await getAllBooks();
-				if (res) setBooks(res);
-				else alert("Error while loading books.");
-				return;
-		}
+		const res = await getBooks(searchType, searchValue);
+		if (res) setBooks(res);
+		else alert("Error while loading books!");
 	}
 
 	const onRowClick = (bookId: string) => {

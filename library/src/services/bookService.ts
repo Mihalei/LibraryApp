@@ -1,5 +1,6 @@
 import { Book, CreateBook } from "../models/book";
 import { bookAPI as Api } from "../api/bookApi";
+import { bookSearchOptions } from "../models/search";
 //import { mockBookAPI as Api } from "../mock-database/bookApi";
 
 export const getAllBooks = () => {
@@ -89,5 +90,23 @@ export async function getSetOfBookAuthors() {
 		return undefined;
 	} catch (error) {
 		return undefined;
+	}
+}
+
+export async function getBooks(searchType: string, searchValue: string) {
+	switch (searchType) {
+		case bookSearchOptions.ByAuthor:
+			const resBA = await getAllBooksFromAuthor(searchValue);
+			return resBA;
+		case bookSearchOptions.ById:
+			const resBI = await getBook(searchValue);
+			if (resBI) return [resBI];
+			else return undefined;
+		case bookSearchOptions.ByTitle:
+			const resBT = await getAllBooksWithTitle(searchValue);
+			return resBT;
+		default:
+			const resA = await getAllBooks();
+			return resA;
 	}
 }

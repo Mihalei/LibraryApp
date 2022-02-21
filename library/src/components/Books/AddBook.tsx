@@ -56,7 +56,7 @@ function AddBook() {
 				</Form.Group>
 
 				<Button variant="success" type="submit" onClick={handleSubmit}>
-					Add
+					Add Book
 				</Button>
 				<Button variant="danger" type="submit" onClick={() => navigate("/books")}>
 					Cancel
