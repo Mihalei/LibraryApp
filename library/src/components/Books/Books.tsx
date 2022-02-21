@@ -52,7 +52,7 @@ function Books() {
 					</div>
 				</div>
 				<div className="books-table-container">
-					<Table bordered hover>
+					<Table responsive bordered hover>
 						<thead>
 							<tr>
 								<th>Id</th>
