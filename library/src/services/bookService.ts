@@ -57,8 +57,8 @@ export async function getAllBooksFromAuthor(authorName: string) {
 	try {
 		const res = await getAllBooks();
 		if (res) {
-			return res.filter(
-				(b) => b.author.toLowerCase().trim() === authorName.toLowerCase().trim()
+			return res.filter((b) =>
+				b.author.toLowerCase().trim().includes(authorName.toLowerCase().trim())
 			);
 		}
 		return undefined;
@@ -71,8 +71,8 @@ export async function getAllBooksWithTitle(bookTitle: string) {
 	try {
 		const res = await getAllBooks();
 		if (res) {
-			return res.filter(
-				(b) => b.title.toLowerCase().trim() === bookTitle.toLowerCase().trim()
+			return res.filter((b) =>
+				b.title.toLowerCase().trim().includes(bookTitle.toLowerCase().trim())
 			);
 		}
 		return undefined;
