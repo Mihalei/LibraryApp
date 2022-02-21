@@ -8,6 +8,8 @@ import Borrowings from "./components/Borrowings/Borrowings";
 import Layout from "./components/Layout/Layout";
 import AddBook from "./components/Books/AddBook";
 import UpdateBook from "./components/Books/UpdateBook";
+import AddMember from "./components/Members/AddMember";
+import UpdateMember from "./components/Members/UpdateMember";
 
 function App() {
 	return (
@@ -20,6 +22,8 @@ function App() {
 						<Route path="/books/add-book" element={<AddBook />} />
 						<Route path="/books/update-book/:id" element={<UpdateBook />} />
 						<Route path="/members" element={<Members />} />
+						<Route path="/members/add-member" element={<AddMember />} />
+						<Route path="/members/update-member/:id" element={<UpdateMember />} />
 						<Route path="/borrowings" element={<Borrowings />} />
 					</Routes>
 				</Layout>

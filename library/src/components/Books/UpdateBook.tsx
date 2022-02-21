@@ -41,7 +41,7 @@ function UpdateBook() {
 		<div className="update-book-container">
 			<Form>
 				<Form.Group className="mb-3">
-					<Form.Label>Book id</Form.Label>
+					<Form.Label>Book Id</Form.Label>
 					<Form.Control placeholder={id} disabled />
 				</Form.Group>
 

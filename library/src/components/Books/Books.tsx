@@ -18,7 +18,6 @@ function Books() {
 	async function fetchBooks() {
 		const res = await getBooks(searchType, searchValue);
 		if (res) setBooks(res);
-		else alert("Error while loading books!");
 	}
 
 	const onRowClick = (bookId: string) => {

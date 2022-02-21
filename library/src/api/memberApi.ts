@@ -24,21 +24,36 @@ export const memberAPI: API<Member> = {
 };
 
 async function getMembers(): Promise<Member[]> {
-	return axios.get(baseURL).then((res) => res.data);
+	return axios
+		.get(baseURL)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to fetch members.`));
 }
 
 async function getMemberById(id: string): Promise<Member> {
-	return axios.get(`${baseURL}/${id}`).then((res) => res.data);
+	return axios
+		.get(`${baseURL}/${id}`)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to fetch member with id ${id}.`));
 }
 
 async function createMember(member: CreateMember): Promise<any> {
-	return axios.post(baseURL, member).then((res) => res.data);
+	return axios
+		.post(baseURL, member)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to create member.`));
 }
 
 async function updateMember(member: Member): Promise<any> {
-	return axios.put(`${baseURL}/${member.id}`, member).then((res) => res.data);
+	return axios
+		.put(`${baseURL}/${member.id}`, member)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to update member with id ${member.id}.`));
 }
 
 async function deleteMemberById(id: string): Promise<any> {
-	return axios.delete(`${baseURL}/${id}`).then((res) => res.data);
+	return axios
+		.delete(`${baseURL}/${id}`)
+		.then((res) => res.data)
+		.catch((error) => alert(`Failed to delete member with id ${id}.`));
 }
