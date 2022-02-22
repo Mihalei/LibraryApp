@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import {
 	Borrowing,
@@ -53,6 +53,11 @@ function UpdateBorrowing() {
 		}
 	}
 
+	const copyId = () => {
+		navigator.clipboard.writeText(originalBorrowing.borrowing.id);
+		alert(`Borrowing id ${id} is copied to clipboard.`);
+	};
+
 	useEffect(() => {
 		fetchBorrowing();
 	}, []);
@@ -60,10 +65,17 @@ function UpdateBorrowing() {
 	return (
 		<div className="update-borrowing-container">
 			<Form>
-				<Form.Group className="mb-3">
-					<Form.Label>Borrowing Id</Form.Label>
-					<Form.Control placeholder={id} disabled />
-				</Form.Group>
+				<InputGroup className="mb-3">
+					<InputGroup.Text>Borrowing Id</InputGroup.Text>
+					<FormControl
+						aria-label="Borrowing Id"
+						placeholder={originalBorrowing.borrowing.id}
+						disabled
+					/>
+					<Button variant="success" id="button-addon2" onClick={() => copyId()}>
+						Copy borrowing id
+					</Button>
+				</InputGroup>
 
 				<Form.Group className="mb-3">
 					<Form.Label>{`Member Id (for member: ${originalBorrowing.memberName})`}</Form.Label>

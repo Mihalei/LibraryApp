@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Member, memberInit } from "../../models/member";
 import { getMember, updateMember } from "../../services/memberService";
@@ -29,6 +29,11 @@ function UpdateMember() {
 		}
 	}
 
+	const copyId = () => {
+		navigator.clipboard.writeText(originalMember.id);
+		alert(`Member id ${id} is copied to clipboard.`);
+	};
+
 	useEffect(() => {
 		fetchMember();
 	}, []);
@@ -36,10 +41,13 @@ function UpdateMember() {
 	return (
 		<div className="update-member-container">
 			<Form>
-				<Form.Group className="mb-3">
-					<Form.Label>Member Id</Form.Label>
-					<Form.Control placeholder={id} disabled />
-				</Form.Group>
+				<InputGroup className="mb-3">
+					<InputGroup.Text>Member Id</InputGroup.Text>
+					<FormControl aria-label="Member Id" placeholder={originalMember.id} disabled />
+					<Button variant="success" id="button-addon2" onClick={() => copyId()}>
+						Copy member id
+					</Button>
+				</InputGroup>
 
 				<Form.Group className="mb-3">
 					<Form.Label>First Name</Form.Label>
