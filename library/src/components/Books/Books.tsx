@@ -3,8 +3,8 @@ import { Button, Table } from "react-bootstrap";
 import { Book } from "../../models/book";
 import { bookSearchOptions } from "../../models/search";
 import { getBooks } from "../../services/bookService";
-import { SearchInput } from "../../shared-compnents/SearchInput";
-import { SearchOptions } from "../../shared-compnents/SearchOptions";
+import { SearchInput } from "../../shared-components/SearchInput";
+import { SearchOptions } from "../../shared-components/SearchOptions";
 import { useNavigate } from "react-router-dom";
 import "./Books.css";
 
