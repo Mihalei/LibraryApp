@@ -3,8 +3,8 @@ import { Button, Table } from "react-bootstrap";
 import { DetailedBorrowing } from "../../models/borrowing";
 import { borrowingSearchOptions } from "../../models/search";
 import { getBorrowings } from "../../services/borrowingService";
-import { SearchInput } from "../../shared-compnents/SearchInput";
-import { SearchOptions } from "../../shared-compnents/SearchOptions";
+import { SearchInput } from "../../shared-components/SearchInput";
+import { SearchOptions } from "../../shared-components/SearchOptions";
 import { useNavigate } from "react-router-dom";
 import "./Borrowings.css";
 

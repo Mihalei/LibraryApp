@@ -3,8 +3,8 @@ import { Button, Table } from "react-bootstrap";
 import { Member } from "../../models/member";
 import { memberSearchOptions } from "../../models/search";
 import { getMembers } from "../../services/memberService";
-import { SearchInput } from "../../shared-compnents/SearchInput";
-import { SearchOptions } from "../../shared-compnents/SearchOptions";
+import { SearchInput } from "../../shared-components/SearchInput";
+import { SearchOptions } from "../../shared-components/SearchOptions";
 import { useNavigate } from "react-router-dom";
 import "./Members.css";
 

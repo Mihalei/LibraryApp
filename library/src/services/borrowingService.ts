@@ -1,9 +1,4 @@
-import {
-	Borrowing,
-	CreateBorrowing,
-	DetailedBorrowing,
-	detailedBorrowingInit,
-} from "../models/borrowing";
+import { Borrowing, CreateBorrowing, DetailedBorrowing } from "../models/borrowing";
 import { borrowingAPI as Api } from "../api/borrowingApi";
 //import { mockBorrowingAPI as Api } from "../mock-database/borrowingApi";
 import { getBook, getAllBooks } from "./bookService";
@@ -26,14 +21,22 @@ export const getBorrowing = (id: string) => {
 	}
 };
 
+export async function numberOfAvailableCopies(bookId: string) {
+	const book = await getBook(bookId);
+	const borrowingCount = await getBorrowingCountForBook(bookId);
+	if (book && borrowingCount !== undefined) return book.amount - borrowingCount;
+	else return undefined;
+}
+
 export async function borrowABook(borrowing: CreateBorrowing) {
 	try {
-		const book = await getBook(borrowing.bookId);
-		const borrowingCount = await getBorrowingCountForBook(borrowing.bookId);
-		if (book && borrowingCount && book.amount > borrowingCount) {
+		const booksLeftCount = await numberOfAvailableCopies(borrowing.bookId);
+		if (booksLeftCount !== undefined && booksLeftCount > 0) {
 			return Api.create(borrowing);
-		} else if (book && borrowingCount && book.amount <= borrowingCount)
-			alert(`Book with id ${book.id} is unavailable. Please wait until someone returns it.`);
+		} else if (booksLeftCount !== undefined && booksLeftCount <= 0)
+			alert(
+				`Book with id ${borrowing.bookId} is unavailable. Please wait until someone returns it.`
+			);
 		return undefined;
 	} catch (error) {
 		return undefined;
