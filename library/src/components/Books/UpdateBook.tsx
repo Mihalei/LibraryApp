@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Book, bookInit } from "../../models/book";
 import { getBook, updateBook } from "../../services/bookService";
@@ -33,6 +33,11 @@ function UpdateBook() {
 		}
 	}
 
+	const copyId = () => {
+		navigator.clipboard.writeText(originalBook.id);
+		alert(`Book id ${id} is copied to clipboard.`);
+	};
+
 	useEffect(() => {
 		fetchBook();
 	}, []);
@@ -40,10 +45,13 @@ function UpdateBook() {
 	return (
 		<div className="update-book-container">
 			<Form>
-				<Form.Group className="mb-3">
-					<Form.Label>Book Id</Form.Label>
-					<Form.Control placeholder={id} disabled />
-				</Form.Group>
+				<InputGroup className="mb-3">
+					<InputGroup.Text>Book Id</InputGroup.Text>
+					<FormControl aria-label="Book Id" placeholder={originalBook.id} disabled />
+					<Button variant="success" id="button-addon2" onClick={() => copyId()}>
+						Copy book id
+					</Button>
+				</InputGroup>
 
 				<Form.Group className="mb-3">
 					<Form.Label>Title</Form.Label>
