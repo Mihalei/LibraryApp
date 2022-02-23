@@ -3,7 +3,7 @@ import { borrowingAPI as Api } from "../api/borrowingApi";
 //import { mockBorrowingAPI as Api } from "../mock-database/borrowingApi";
 import { getBook, getAllBooks } from "./bookService";
 import { borrowingSearchOptions } from "../models/search";
-import { getAllMembers } from "./memberService";
+import { getAllMembers, getMember } from "./memberService";
 
 export const getAllBorrowings = () => {
 	try {
@@ -28,8 +28,18 @@ export async function numberOfAvailableCopies(bookId: string) {
 	else return undefined;
 }
 
+export async function checkIfIdsAreValid(bookId: string, memberId: string) {
+	const book = await getBook(bookId);
+	const member = await getMember(memberId);
+	if (book === undefined) return false;
+	if (member === undefined) return false;
+	else return true;
+}
+
 export async function borrowABook(borrowing: CreateBorrowing) {
 	try {
+		const idsAreValid = await checkIfIdsAreValid(borrowing.bookId, borrowing.memberId);
+		if (idsAreValid === false) return undefined;
 		const booksLeftCount = await numberOfAvailableCopies(borrowing.bookId);
 		if (booksLeftCount !== undefined && booksLeftCount > 0) {
 			return Api.create(borrowing);
