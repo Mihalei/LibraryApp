@@ -1,6 +1,7 @@
 import { Book, CreateBook } from "../models/book";
 import { bookAPI as Api } from "../api/bookApi";
 import { bookSearchOptions } from "../models/search";
+import { getBorrowingCountForBook } from "./borrowingService";
 //import { mockBookAPI as Api } from "../mock-database/bookApi";
 
 export const getAllBooks = () => {
@@ -27,9 +28,18 @@ export const addNewBook = (book: CreateBook) => {
 	}
 };
 
-export const updateBook = (book: Book) => {
+export async function updateBook(book: Book) {
 	try {
-		return Api.update(book);
+		const numberOfBorrowedCopies = await getBorrowingCountForBook(book.id);
+		if (numberOfBorrowedCopies !== undefined && book.amount >= numberOfBorrowedCopies)
+			return Api.update(book);
+		else if (numberOfBorrowedCopies !== undefined && book.amount < numberOfBorrowedCopies) {
+			alert(
+				`Book amount must be greater than or equal to number of borrowed copies (${numberOfBorrowedCopies}).`
+			);
+			return "Wrong amount";
+		}
+		return undefined;
 	} catch (error) {
 		return undefined;
 	}
