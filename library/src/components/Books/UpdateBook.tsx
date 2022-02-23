@@ -21,6 +21,7 @@ function UpdateBook() {
 		e.preventDefault();
 		if (updatedBook.amount > 0) {
 			const res = await updateBook(updatedBook);
+			if (res !== undefined && res === "Wrong amount") return;
 			navigate("/books");
 		} else alert("Book amount must be greater than 0!");
 	}
